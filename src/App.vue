@@ -64,6 +64,7 @@
         <nav class="col-md-3 p-0 border-right d-none d-md-block bg-white vh-10 shadow-sm">
           <div class="list-group-flush">
             <router-link to="home" class="list-group-item list-group-item-action">Home</router-link>
+            <router-link to="dashboard" class="list-group-item list-group-item-action">Dashboard</router-link>
             <router-link to="about" class="list-group-item list-group-item-action">About</router-link>
           </div>
         </nav>
