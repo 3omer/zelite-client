@@ -17,13 +17,13 @@
               />
             </svg>
           </span>
-          <span class="mx-1 align-middle">Home</span>
+          <span class="mx-1 align-middle">Zelite</span>
         </a>
         <button
           class="navbar-toggler"
           type="button"
-          data-toggle="collapse"
-          data-target="#navbarTogglerDemo02"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarTogglerDemo02"
           aria-controls="navbarTogglerDemo02"
           aria-expanded="false"
           aria-label="Toggle navigation"
@@ -38,7 +38,7 @@
                 <router-link to="home" class="nav-link">Home</router-link>
               </li>
               <li class="nav-item border-bottom">
-                <router-link to="about" class="nav-link"></router-link>
+                <router-link to="about" class="nav-link">About</router-link>
               </li>
             </ul>
           </div>
