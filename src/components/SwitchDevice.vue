@@ -10,19 +10,19 @@
         <span class="name-icon">
           <img src="icons/name.svg" width="15px" />
         </span>
-        <span>{{name}}</span>
+        <span>{{device.name}}</span>
       </div>
       <div class="device-place" data-target="place">
         <span class="place-icon">
           <img src="icons/place.svg" width="15px" />
         </span>
-        <span>{{place}}</span>
+        <span>{{device.place}}</span>
       </div>
       <div class="device-port badge">
         <span class="port-icon">
           <img src="icons/port.svg" width="10px" />
         </span>
-        <span>{{port}}</span>
+        <span>{{device.port}}</span>
       </div>
     </div>
     <div class="options col d-flex flex-column">
