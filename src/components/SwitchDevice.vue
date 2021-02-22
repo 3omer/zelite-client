@@ -3,7 +3,7 @@
     <div
       class="icon col-2 bg-secondary rounded-circle d-flex align-items-center justify-content-center"
     >
-      <img class="img-fluid" src="assets/switch.svg" width="100px" />
+      <img class="img-fluid" src="@/assets/switch.svg" width="100px" />
     </div>
     <div class="device-details col-4 px-2 m-1">
       <div class="device-name h5" data-target="name">
