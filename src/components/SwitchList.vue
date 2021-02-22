@@ -25,7 +25,7 @@ export default {
           topic: "zelite/room1/test"
         },
         {
-          id: "123",
+          id: "456",
           name: "test device",
           place: "testRoom",
           type: "switch",
@@ -33,7 +33,7 @@ export default {
           topic: "zelite/room1/test"
         }
       ]
-    };
+    }
   },
   components: {
       SwitchDevice
