@@ -35,15 +35,8 @@
 
 export default {
     name: 'SwitchDevice',
-    data() {
-        return {
-            id: '123',
-            name: 'test device',
-            place: 'testRoom',
-            type: 'switch',
-            port: 5,
-            topic: 'zelite/room1/test'
-        }
+    props: {
+      device: Object
     },
 };
 </script>
