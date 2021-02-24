@@ -47,16 +47,23 @@ const login = async (email, password) => {
             return res.data
         })
         .catch(err => {
-            // return a user friendly message to ui
-            let message = 'Something went Wrong'
             console.error(err)
-            if (err.response) {
-                message = err.response.data.error || message
-            }
-            return Promise.reject(message)
+            return Promise.reject(axiosErrorToMsg(err))
         })
 }
 
+/**
+ * transofrm api calls errors to a userfriendly message
+ * @param {Error} err Axios error object
+ */
+const axiosErrorToMsg = (err) => {
+    // return a user friendly message to ui
+    let message = 'Something went Wrong'
+    if (err.response) {
+        message = err.response.data.error || message
+    }
+    return message
+}
 
 export {
     signup,
