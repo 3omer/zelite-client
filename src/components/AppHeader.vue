@@ -45,7 +45,7 @@
     </nav>
     <!-- only if user is authenticated -->
     <div
-      v-if="user"
+      v-if="user.email"
       class="user-status d-flex justify-content-between align-items-center border shadow p-2 px-3"
     >
       <div class="user media text-secondary">
@@ -63,9 +63,7 @@
 export default {
   name: "AppHeader",
   computed: {
-    user() {
-        console.log(this.$store);
-        
+    user() {        
       return this.$store.state.user
     }
   }
