@@ -1,11 +1,12 @@
 <template>
   <Form>
     <template v-slot:title>Create Account</template>
-    <template v-slot:errors>signigup error</template>
+    <template v-if="error" v-slot:errors>{{error}}</template>
     <template v-slot:form>
-      <form id="registerForm" method="POST">
+      <form @submit.prevent="onSubmit" id="registerForm" method="POST">
         <div class="form-group">
           <input
+          v-model="username"
             type="text"
             class="form-control"
             id="username"
@@ -19,6 +20,7 @@
 
         <div class="form-group">
           <input
+          v-model="email"
             type="email"
             class="form-control"
             id="email"
@@ -33,6 +35,7 @@
 
         <div class="form-group">
           <input
+          v-model="password"
             type="password"
             class="form-control"
             id="password"
@@ -55,9 +58,32 @@
 </template>
 
 <script>
-import Form from "./Form.vue";
+import Form from "./Form.vue"
+import { signup } from "../services/api"
+
 export default {
   name: "SignupForm",
+  data() {
+    return {
+      username: "",
+      email: "",
+      password:"",
+      error: ""
+    };
+  },
+  methods: {
+    onSubmit() {
+      console.log("SignupForm:onSubmit()")
+      signup(this.username, this.email, this.password)
+      .then(data => {
+        console.log("signup passed", { data });
+        this.error = ""
+      })
+      .catch(err => {
+        this.error = err
+      })
+    }
+  },
   components: {
     Form
   }

@@ -32,6 +32,10 @@ const signup = async (username, email, password) => {
         .then(res => {
             return res.data
         })
+        .catch(err => {
+            console.error(err)
+            return Promise.reject(axiosErrorToMsg(err))
+        })
 }
 
 /**
