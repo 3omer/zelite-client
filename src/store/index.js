@@ -4,12 +4,11 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 // initial state
-let user = null
+let user = {}
 try {
-  user = JSON.parse(localStorage.getItem('user')) || {}
+  user = JSON.parse(localStorage.getItem('user')) || user
 } catch {
   localStorage.removeItem('user')
-  user = {}
 }
 
 const SET_USER = 'SET_USER'
@@ -21,7 +20,9 @@ export default new Vuex.Store({
   },
   mutations: {
     [SET_USER](state, newUser) {
-      Vue.set(state.user, newUser)
+      Vue.set(state.user, 'username', newUser.username)
+      Vue.set(state.user, 'email', newUser.email)
+      Vue.set(state.user, 'token', newUser.token)
       localStorage.setItem('user', JSON.stringify(newUser))
     },
     [DEL_USER](state) {
