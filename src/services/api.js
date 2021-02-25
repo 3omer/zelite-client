@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:5000/api/v1'
+const BASE_URL = "https://f2054af8-6ec8-40bc-8032-b62a43441f83.mock.pstmn.io" ||'http://localhost:5000/api/v1'
 
 // config axios
 axios.defaults.baseURL = BASE_URL
@@ -56,6 +56,28 @@ const login = async (email, password) => {
         })
 }
 
+const authHeader = (token) => {
+    return {
+        "Authorization": `Bearer ${token}`
+    }
+}
+
+/**
+ * loggout
+ * @param {string} token current user's token
+ * @returns {Promise} when resolved it return the server message, or user friendly message on rejection
+ */
+const logout = (token) => {
+    return axios.post(ENDPOINTS.logout, { headers: authHeader(token) })
+        .then(res => {
+            return res.data.message || "You logged out"
+        })
+        .catch(err => {
+            console.error(err)
+            return Promise.reject(axiosErrorToMsg(err))
+        })
+}
+
 /**
  * transofrm api calls errors to a userfriendly message
  * @param {Error} err Axios error object
@@ -71,5 +93,6 @@ const axiosErrorToMsg = (err) => {
 
 export {
     signup,
-    login
+    login,
+    logout
 }
