@@ -1,4 +1,6 @@
 # zelite-client
+## About
+It's a SPA for [Zelite Platform](https://github.com/3omer/zelite)
 
 ## Project setup
 ```
