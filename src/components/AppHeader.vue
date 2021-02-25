@@ -54,17 +54,35 @@
           <br />
         </div>
       </div>
-      <a class="btn btn-sm btn-dark" href>Logout</a>
+      <button @click="btnLogout" class="btn btn-sm btn-dark">Logout</button>
     </div>
   </div>
 </template>
 
 <script>
+import { logout } from "../services/api";
+// TODO: Add status/notifiction bar to display app level errors
+
 export default {
   name: "AppHeader",
   computed: {
-    user() {        
-      return this.$store.state.user
+    user() {
+      return this.$store.state.user;
+    }
+  },
+  methods: {
+    btnLogout() {
+      // handle on click
+      console.log("btnLogout()");
+      logout(this.user.token)
+        .then(msg => {
+          console.log("Logging out - success", msg)
+          // TODO: display msg on status bar
+        })
+        .catch(errMsg => {
+          console.log("Logging out - failed", errMsg)
+        // TODO: display errMsg on status bar
+        })
     }
   }
 };
