@@ -13,10 +13,12 @@ try {
 
 const SET_USER = 'SET_USER'
 const DEL_USER = 'DEL_USER'
+const SET_DEVICES = 'SET_DEVICES'
 
 export default new Vuex.Store({
   state: {
-    user
+    user,
+    devices: {}
   },
   mutations: {
     [SET_USER](state, newUser) {
@@ -30,7 +32,17 @@ export default new Vuex.Store({
       let username, email, token  = null
       state.user = { ...state.user, ...{ username, email, token }}
       localStorage.removeItem('user')
+    },
+    
+    // Mutate devices
+    [SET_DEVICES](state, devicesList) {
+      devicesList.forEach((device) => {
+        state.devices[device.key] = device
+      })
     }
+  },
+  getters: {
+    token: state => state.user.token
   },
   actions: {
   },
