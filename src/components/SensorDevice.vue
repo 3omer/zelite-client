@@ -30,8 +30,10 @@
 export default {
     name: "SensorDevice",
     props: {
-
         device: Object
+    },
+    created() {
+      // console.log(this.device.key, 'created');
     }
 }
 </script>
