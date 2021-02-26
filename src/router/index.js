@@ -16,7 +16,10 @@ const routes = [
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: Dashboard
+    component: Dashboard,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/signup',
@@ -39,7 +42,16 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  linkExactActiveClass: "active",
   routes
+})
+
+// Nav Guards
+router.beforeEach((to, from, next) => {  
+  const user = router.app.$store.state.user
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  if (requiresAuth && ! user.token) next('login')
+  else next()
 })
 
 export default router
