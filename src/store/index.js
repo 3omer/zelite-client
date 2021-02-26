@@ -26,7 +26,9 @@ export default new Vuex.Store({
       localStorage.setItem('user', JSON.stringify(newUser))
     },
     [DEL_USER](state) {
-      Vue.delete(state.user)
+      // Vue.delete(state.user, 'username')
+      let username, email, token  = null
+      state.user = { ...state.user, ...{ username, email, token }}
       localStorage.removeItem('user')
     }
   },
