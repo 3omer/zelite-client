@@ -78,6 +78,19 @@ const logout = (token) => {
         })
 }
 
+
+const getDevices = (token) => {
+    return axios.get(ENDPOINTS.devices, { headers: authHeader(token) })
+    .then(res => {
+        return res.data
+    })
+    .catch(err => {
+        console.error(err)
+        return Promise.reject(axiosErrorToMsg(err))
+    })
+}
+
+
 /**
  * transofrm api calls errors to a userfriendly message
  * @param {Error} err Axios error object
@@ -94,5 +107,6 @@ const axiosErrorToMsg = (err) => {
 export {
     signup,
     login,
-    logout
+    logout,
+    getDevices
 }
