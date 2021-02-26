@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = "https://f2054af8-6ec8-40bc-8032-b62a43441f83.mock.pstmn.io" ||'http://localhost:5000/api/v1'
+const BASE_URL = "https://f71e8b96-2bd9-4d49-bfa5-47840cebaf35.mock.pstmn.io/api/v1" ||'http://localhost:5000/api/v1'
 
 // config axios
 axios.defaults.baseURL = BASE_URL
