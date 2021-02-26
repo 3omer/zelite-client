@@ -36,9 +36,7 @@ export default new Vuex.Store({
     
     // Mutate devices
     [SET_DEVICES](state, devicesList) {
-      devicesList.forEach((device) => {
-        state.devices.push(device)
-      })
+      state.devices = [...devicesList]
     }
   },
   getters: {
