@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { logout } from "../services/api";
+import { logout } from "../services/api"
 // TODO: Add status/notifiction bar to display app level errors
 
 export default {
@@ -78,6 +78,7 @@ export default {
         .then(msg => {
           console.log("Logging out - success", msg)
           // TODO: display msg on status bar
+          this.$store.commit('DEL_USER')
         })
         .catch(errMsg => {
           console.log("Logging out - failed", errMsg)
