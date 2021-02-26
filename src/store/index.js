@@ -18,7 +18,7 @@ const SET_DEVICES = 'SET_DEVICES'
 export default new Vuex.Store({
   state: {
     user,
-    devices: {}
+    devices: []
   },
   mutations: {
     [SET_USER](state, newUser) {
@@ -37,12 +37,16 @@ export default new Vuex.Store({
     // Mutate devices
     [SET_DEVICES](state, devicesList) {
       devicesList.forEach((device) => {
-        state.devices[device.key] = device
+        state.devices.push(device)
       })
     }
   },
   getters: {
-    token: state => state.user.token
+    token: state => state.user.token,
+    
+    // categorizing devies based on their type
+    switchDevices: state => state.devices.filter(device => device.type == "switch"),
+    sensorDevices: state => state.devices.filter(device => device.type == "sensor")
   },
   actions: {
   },
