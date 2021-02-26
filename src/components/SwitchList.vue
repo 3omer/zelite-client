@@ -13,26 +13,9 @@
 import SwitchDevice from "./SwitchDevice";
 
 export default {
-  data() {
-    return {
-      switches: [
-        {
-          id: "123",
-          name: "test device",
-          place: "testRoom",
-          type: "switch",
-          port: 5,
-          topic: "zelite/room1/test"
-        },
-        {
-          id: "456",
-          name: "test device",
-          place: "testRoom",
-          type: "switch",
-          port: 5,
-          topic: "zelite/room1/test"
-        }
-      ]
+  computed: {
+    switches() {
+      return this.$store.getters.switchDevices
     }
   },
   components: {
