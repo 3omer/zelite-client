@@ -1,26 +1,28 @@
 <template>
-  <div class="p-2 my-2 bg-white shadow rounded-lg">
-    <h4>
-      <span class="badge badge-dark px-3 mb-2">Sensors</span>
-    </h4>
+  <Card class="bg-light pb-2">
+    <div class="h3">
+      <span class="badge gradient-blue px-3">Sensors</span>
+    </div>
     <div v-if="sensors.length" class="d-flex flex-wrap mx-0 mx-md-2 device-list">
       <SensorDevice :key="device.key" :device="device" v-for="device in sensors" />
     </div>
-  </div>
+  </Card>
 </template>
 
 <script>
 import SensorDevice from "./SensorDevice";
+import Card from "./Card";
 
 export default {
   name: "SensorList",
   computed: {
     sensors() {
-      return this.$store.getters.sensorDevices
+      return this.$store.getters.sensorDevices;
     }
   },
   components: {
-    SensorDevice
+    SensorDevice,
+    Card
   },
   mounted() {
     // console.log(this);
@@ -29,4 +31,8 @@ export default {
 </script>
 
 <style>
+.gradient-reddish {
+  background-color: #90d5ec;
+  background-image: linear-gradient(270deg, #fc575e 0%, #90d5ec 50%);
+}
 </style>

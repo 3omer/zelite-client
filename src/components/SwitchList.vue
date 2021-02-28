@@ -1,28 +1,37 @@
 <template>
-  <div class="p-2 my-2 bg-white shadow rounded-lg">
-    <h4>
-      <span class="badge badge-dark px-3 mb-2">Switches</span>
-    </h4>
-    <div class="mx-0 mx-md-2">
-      <SwitchDevice v-bind:device="device" v-bind:key="device.id" v-for="device in switches"/>
+  <Card class="my-2 pb-2 bg-light">
+    <div class="h3">
+      <span class="badge gradient-blue px-3">Switches</span>
     </div>
-  </div>
+    <div class="mx-0 mx-md-2">
+      <SwitchDevice v-bind:device="device" v-bind:key="device.id" v-for="device in switches" />
+    </div>
+  </Card>
 </template>
 
 <script>
+import Card from "./Card";
 import SwitchDevice from "./SwitchDevice";
 
 export default {
   computed: {
     switches() {
-      return this.$store.getters.switchDevices
+      return this.$store.getters.switchDevices;
     }
   },
   components: {
-      SwitchDevice
+    SwitchDevice,
+    Card
   }
 };
 </script>
 
 <style>
+.gradient-blue {
+  background-color: #045de9;
+  background-image: linear-gradient(150deg, #045de9 0%, #09c6f9 74%);
+}
+
+.gradient-light {
+}
 </style>

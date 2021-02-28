@@ -46,7 +46,7 @@
     <!-- only if user is authenticated -->
     <div
       v-if="user.email"
-      class="user-status d-flex justify-content-between align-items-center border shadow p-2 px-3"
+      class="user-status d-flex justify-content-between align-items-center border p-2 px-3"
     >
       <div class="user media text-secondary">
         <div class="media-body">
