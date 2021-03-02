@@ -12,7 +12,7 @@
       </div>
       <div class="device-place">
         <span>
-          <i class="bi bi-geo"></i>
+          <i class="bi bi-geo-alt"></i>
           {{device.place}}
         </span>
       </div>
