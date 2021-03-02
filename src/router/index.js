@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Signup from "../views/Signup.vue"
 import Login from '../views/Login.vue'
+import Manager from "../views/Manager"
 
 Vue.use(VueRouter)
 
@@ -17,9 +18,7 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard,
-    meta: {
-      requiresAuth: true
-    }
+    meta: { requiresAuth: true }
   },
   {
     path: '/signup',
@@ -30,6 +29,12 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/manager',
+    name: 'manger',
+    component: Manager,
+    meta: { requiresAuth: true }
   },
   {
     path: '/about',

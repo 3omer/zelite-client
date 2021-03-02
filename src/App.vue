@@ -17,6 +17,10 @@
               <i class="bi bi-speedometer"></i>
               Dashboard
             </router-link>
+            <router-link to="manager" class="list-group-item list-group-item-action">
+              <i class="bi bi-gear"></i>
+              Manager
+            </router-link>
             <router-link to="about" class="list-group-item list-group-item-action">
               <i class="bi bi-info-circle"></i>
               About
