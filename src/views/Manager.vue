@@ -22,15 +22,15 @@
           aria-labelledby="headingOne"
           data-bs-parent="#settingsAccordion"
         >
-          <div class="accordion-body">
-            <div class="m-auto">
-              <div class="btn-group">
-                <button type="button" class="btn btn-primary" @click="btnAddDevice">add device</button>
-                <button type="button" class="btn btn-primary" @click="btnMyDevices">my devices</button>
-              </div>
-              <div :is="selectedComponent"></div>
+          <div class="accordion-body bg-light">
+            <div class="mb-2">
+              <button class="btn btn-primary mx-2" @click="btnAddDevice">Add Device</button>
+              <button class="btn btn-primary mx-2" @click="btnMyDevices">My Devices</button>
             </div>
-            <hr />
+            <Card class="p-2 bg-white">
+              <DevicesTable v-if="selectedComponent=='DevicesTable'" />
+              <NewDeviceForm v-if="selectedComponent=='NewDeviceForm'" />
+            </Card>
           </div>
         </div>
       </div>
@@ -66,10 +66,11 @@
 <script>
 import DevicesTable from "../components/DevicesTable";
 import NewDeviceForm from "../components/NewDeviceForm";
+import Card from "../components/Card";
 export default {
   name: "Manager",
   data() {
-    return { selectedComponent: DevicesTable }
+    return { selectedComponent: DevicesTable.name };
   },
   computed: {
     devices() {
@@ -78,16 +79,17 @@ export default {
   },
   methods: {
     btnAddDevice() {
-      this.selectedComponent = NewDeviceForm
+      this.selectedComponent = "NewDeviceForm";
     },
 
     btnMyDevices() {
-      this.selectedComponent = DevicesTable
+      this.selectedComponent = "DevicesTable";
     }
   },
   components: {
     NewDeviceForm,
-    DevicesTable
+    DevicesTable,
+    Card
   }
 };
 </script>

@@ -30,9 +30,7 @@
 
 <script>
 export default {
-    props: {
-      devices: Array
-    },
+    computed: { devices() { return this.$store.state.devices } },
     name: "DevicesTable"
 };
 </script>

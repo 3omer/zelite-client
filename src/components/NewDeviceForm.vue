@@ -33,7 +33,7 @@
           <input class="form-control" id="port" name="port" placeholder="Port number" type="number" />
         </div>
         <div class="form-group">
-          <label for="type">Type</label>
+          <label for="type">Device Type</label>
           <select class="custom-select" id="type" name="type">
             <option selected>Open this select menu</option>
             <option value="switch">Switch</option>
@@ -42,7 +42,6 @@
         </div>
         <div class="border-top p-2 text-center">
           <button type="submit" class="btn btn-sm btn-primary m-3">Submit</button>
-          <router-link class="btn btn-sm btn-secondary" to="manager">Cancel</router-link>
         </div>
       </form>
     </template>
