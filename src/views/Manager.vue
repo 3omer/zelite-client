@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h5>
-      Manager
-    </h5>
+    <h5>Manager</h5>
     <div class="accordion" id="settingsAccordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
@@ -14,8 +12,9 @@
             aria-expanded="true"
             aria-controls="collapseOne"
           >
-          <i class="bi bi-ui-checks-grid"></i>
-          Devices Manager</button>
+            <i class="bi bi-ui-checks-grid"></i>
+            Devices Manager
+          </button>
         </h2>
         <div
           id="collapseOne"
@@ -24,31 +23,14 @@
           data-bs-parent="#settingsAccordion"
         >
           <div class="accordion-body">
-            <table id="deviceManager" class="table table-hover">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Port</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Place</th>
-                  <th scope="col">MQTT-Topic</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr :key="device.key" v-for="device in devices">
-                  <th>{{device.port}}</th>
-                  <td>{{device.name}}</td>
-                  <td>{{device.place}}</td>
-                  <td>
-                    <input class="form-control" type="text" :value="device.topic" readonly />
-                  </td>
-
-                  <td>
-                    <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="m-auto">
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary" @click="btnAddDevice">add device</button>
+                <button type="button" class="btn btn-primary" @click="btnMyDevices">my devices</button>
+              </div>
+              <div :is="selectedComponent"></div>
+            </div>
+            <hr />
           </div>
         </div>
       </div>
@@ -62,8 +44,9 @@
             aria-expanded="false"
             aria-controls="collapseTwo"
           >
-          <i class="bi bi-globe"></i>
-          MQTT Connection Manager</button>
+            <i class="bi bi-globe"></i>
+            MQTT Connection Manager
+          </button>
         </h2>
         <div
           id="collapseTwo"
@@ -72,8 +55,7 @@
           data-bs-parent="#settingsAccordion"
         >
           <div class="accordion-body">
-            <div id="MQTTManager" class="card -card-body p-2">
-            </div>
+            <div id="MQTTManager" class="card -card-body p-2"></div>
           </div>
         </div>
       </div>
@@ -82,16 +64,30 @@
 </template>
 
 <script>
-// import Card from "../components/Card";
+import DevicesTable from "../components/DevicesTable";
+import NewDeviceForm from "../components/NewDeviceForm";
 export default {
   name: "Manager",
+  data() {
+    return { selectedComponent: DevicesTable }
+  },
   computed: {
     devices() {
       return this.$store.state.devices;
     }
   },
+  methods: {
+    btnAddDevice() {
+      this.selectedComponent = NewDeviceForm
+    },
+
+    btnMyDevices() {
+      this.selectedComponent = DevicesTable
+    }
+  },
   components: {
-    // Card
+    NewDeviceForm,
+    DevicesTable
   }
 };
 </script>
