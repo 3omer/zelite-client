@@ -53,7 +53,7 @@ export default new Vuex.Store({
           commit(types.SET_DEVICES, devices);
         })
         .catch(err => {
-          console.log("Loading data failed", err);
+          console.log("Loading data failed", err)
         });
     }
   },
