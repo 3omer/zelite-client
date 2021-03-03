@@ -90,6 +90,18 @@ const getDevices = (token) => {
     })
 }
 
+const postDevice = (token, device) => {
+    return axios.post(ENDPOINTS.devices, device, { headers: authHeader(token) })
+    .then(res => {
+        return res.data
+    })
+    .catch(err => {
+        console.error(err)
+        return Promise.reject(axiosErrorToMsg(err))
+        
+    })
+}
+
 
 /**
  * transofrm api calls errors to a userfriendly message
@@ -108,5 +120,6 @@ export {
     signup,
     login,
     logout,
-    getDevices
+    getDevices,
+    postDevice
 }
