@@ -6,7 +6,7 @@
       <form @submit.prevent="onSubmit" id="loginForm" method="POST" novalidate>
         <div class="form-group">
           <input
-            v-model="name"
+            v-model="form.name"
             type="text"
             class="form-control"
             id="name"
@@ -19,7 +19,7 @@
 
         <div class="form-group">
           <input
-            v-model="place"
+            v-model="form.place"
             type="text"
             class="form-control"
             id="place"
@@ -34,8 +34,7 @@
         </div>
         <div class="form-group">
           <label for="type">Device Type</label>
-          <select class="custom-select" id="type" name="type">
-            <option selected>Open this select menu</option>
+          <select class="custom-select" id="type" name="type" v-model="form.type">
             <option value="switch">Switch</option>
             <option value="sensor">Sensor</option>
           </select>
@@ -50,18 +49,37 @@
 
 <script>
 import Form from "./Form";
+import { postDevice } from "../services/api";
+import { types } from "../store/mutations-types";
 
 export default {
   name: "NewDeviceForm",
   components: { Form },
   data() {
-      return { 
-          name: '',
-          place: '',
-          type: 'switch',
-          port: '',
-          error: ''
-      }
+    return {
+      form: {
+        name: "",
+        place: "",
+        type: "switch",
+        port: ""
+      },
+      error: ""
+    };
+  },
+  methods: {
+    onSubmit() {
+      console.log("onSubmit()");
+      postDevice(this.$store.getters.token, this.form)
+        .then(device => {
+          if (!device) {
+            this.error = "Sorry something went wrong";
+          }
+          this.$store.commit(types.ADD_DEVICE, device);
+        })
+        .catch(errMsg => {
+          this.error = errMsg;
+        });
+    }
   }
 };
 </script>
