@@ -36,6 +36,10 @@ export default new Vuex.Store({
     // Mutate devices
     [types.SET_DEVICES](state, devicesList) {
       state.devices = [...devicesList]
+    },
+
+    [types.ADD_DEVICE](state, device) {
+      state.devices.push(device)
     }
   },
   getters: {
