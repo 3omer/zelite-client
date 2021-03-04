@@ -30,7 +30,7 @@
           />
         </div>
         <div class="form-group">
-          <input class="form-control" id="port" name="port" placeholder="Port number" type="number" />
+          <input class="form-control" id="port" name="port" v-model="form.port" placeholder="Port number" type="number" />
         </div>
         <div class="form-group">
           <label for="type">Device Type</label>
@@ -61,15 +61,22 @@ export default {
         name: "",
         place: "",
         type: "switch",
-        port: ""
+        port: 0
       },
       error: ""
     };
   },
   methods: {
     onSubmit() {
-      console.log("onSubmit()");
-      postDevice(this.$store.getters.token, this.form)
+      console.log("onSubmit()")
+      const data = {
+        name: this.form.name,
+        place: this.form.port,
+        port: this.form.port,
+        type:this.form.type
+      }
+      
+      postDevice(this.$store.getters.token, data)
         .then(device => {
           if (!device) {
             this.error = "Sorry something went wrong";
