@@ -18,7 +18,8 @@ const ENDPOINTS = {
     signup: '/register',
     login: '/login',
     logout: '/logout',
-    devices: '/devices'
+    devices: '/devices',
+    MQTTConfig: '/mqtt'
 }
 
 /**
@@ -92,8 +93,6 @@ const getDevices = (token) => {
 }
 
 const postDevice = (token, device) => {
-    console.log(device);
-    
     return axios.post(ENDPOINTS.devices, device, { headers: authHeader(token) })
     .then(res => {
         return res.data
@@ -114,6 +113,16 @@ const deleteDevice = (token, deviceKey) => {
     })
 }
 
+const getMQTTConfig = (token) => {
+    return axios.get(ENDPOINTS.MQTTConfig, { headers: authHeader(token) })
+    .then(res => {
+        return res.data
+    })
+    .catch(err => {
+        console.error(err)
+        axiosErrorToMsg(err)
+    })
+}
 
 /**
  * transofrm api calls errors to a userfriendly message
@@ -134,5 +143,6 @@ export {
     logout,
     getDevices,
     postDevice,
-    deleteDevice
+    deleteDevice,
+    getMQTTConfig
 }
