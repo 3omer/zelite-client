@@ -127,7 +127,7 @@ const getMQTTConfig = (token) => {
 const postMQTTCred = (token, cred) => {
     return axios.post(ENDPOINTS.MQTTConfig, cred, { headers: authHeader(token) })
     .then(res => {
-        return res.data.credentials
+        return res.data
     })
     .catch(err => {
         console.error(err)
