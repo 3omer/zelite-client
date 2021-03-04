@@ -120,7 +120,19 @@ const getMQTTConfig = (token) => {
     })
     .catch(err => {
         console.error(err)
-        axiosErrorToMsg(err)
+        Promise.reject(axiosErrorToMsg(err))
+    })
+}
+
+const postMQTTCred = (token, cred) => {
+    return axios.post(ENDPOINTS.MQTTConfig, cred, { headers: authHeader(token) })
+    .then(res => {
+        return res.data.credentials
+    })
+    .catch(err => {
+        console.error(err)
+        Promise.reject(axiosErrorToMsg(err))
+        
     })
 }
 
@@ -144,5 +156,6 @@ export {
     getDevices,
     postDevice,
     deleteDevice,
-    getMQTTConfig
+    getMQTTConfig,
+    postMQTTCred
 }
