@@ -40,6 +40,10 @@ export default new Vuex.Store({
 
     [types.ADD_DEVICE](state, device) {
       state.devices.push(device)
+    },
+    [types.DELETE_DEVICE](state, deviceKey) {
+      const index = state.devices.findIndex(one => one.key == deviceKey)
+      Vue.delete(state.devices, index)
     }
   },
   getters: {
