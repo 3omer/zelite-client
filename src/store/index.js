@@ -18,7 +18,10 @@ export default new Vuex.Store({
   state: {
     user,
     devices: [],
-    MQTTConfig: {}
+    MQTTConfig: {
+      username: '',
+      password: ''
+    }
   },
   mutations: {
     [types.SET_USER](state, newUser) {
@@ -79,7 +82,7 @@ export default new Vuex.Store({
           config.port = 8883
           config.secure = false
           commit(types.SET_MQTT_CONFIG, config)
-          console.log('MQTTConfig- set');
+          console.log('MQTTConfig- set', { config });
         })
         .catch(errMsg => {
           // TODO: state to hold Global error
