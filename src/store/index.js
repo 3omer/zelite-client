@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { getDevices } from '../services/api'
+import { getDevices, getMQTTConfig } from '../services/api'
 import { types } from './mutations-types'
 
 Vue.use(Vuex)
@@ -17,7 +17,8 @@ try {
 export default new Vuex.Store({
   state: {
     user,
-    devices: []
+    devices: [],
+    MQTTConfig: {}
   },
   mutations: {
     [types.SET_USER](state, newUser) {
@@ -46,6 +47,12 @@ export default new Vuex.Store({
       Vue.delete(state.devices, index)
     }
   },
+  [types.SET_MQTT_CONFIG](state, MQTTConfig) {
+    Vue.set(state.MQTTConfig, 'username', MQTTConfig.username)
+    Vue.set(state.MQTTConfig, 'password', MQTTConfig.password)
+    Vue.set(state.MQTTConfig, 'host', MQTTConfig.host)
+    Vue.set(state.MQTTConfig, 'secure', MQTTConfig.secure)
+  },
   getters: {
     token: state => state.user.token,
 
@@ -63,6 +70,21 @@ export default new Vuex.Store({
         .catch(err => {
           console.log("Loading data failed", err)
         });
+    },
+    loadMQTTConfig({ commit, getters }) {
+      getMQTTConfig(getters.token)
+        .then(config => {
+          // TODO: load dev server from env
+          config.host = "127.0.0.1"
+          config.port = 8883
+          config.secure = false
+          commit(types.SET_MQTT_CONFIG, config)
+          console.log('MQTTConfig- set');
+        })
+        .catch(errMsg => {
+          // TODO: state to hold Global error
+          console.log(errMsg);
+        })
     }
   },
   modules: {
