@@ -19,7 +19,7 @@
         </td>
 
         <td>
-          <button class="btn btn-danger">
+          <button class="btn btn-danger" @click="btnDelete(device.key)">
             <i class="bi bi-trash"></i>
           </button>
         </td>
@@ -29,9 +29,23 @@
 </template>
 
 <script>
+import { deleteDevice } from '../services/api'
+
 export default {
     computed: { devices() { return this.$store.state.devices } },
-    name: "DevicesTable"
+    name: "DevicesTable",
+    methods: {
+      btnDelete(key) {
+        console.log('btnDelete()', key)
+        deleteDevice(this.$store.getters.token, key)
+        .then(() => {
+          console.log('Deleted')
+        })
+        .catch(errorMsg => {
+          console.log(errorMsg);
+        })
+      }
+    }
 };
 </script>
 
