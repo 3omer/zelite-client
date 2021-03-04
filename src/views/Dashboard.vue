@@ -16,8 +16,9 @@ export default {
     SensorList
   },
   created() {
-    console.log("Dashboard:created()");
+    console.log("Dashboard:created()")
     this.$store.dispatch('loadDevices')
+    this.$store.dispatch('loadMQTTConfig')
   },
 };
 </script>

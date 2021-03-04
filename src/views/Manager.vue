@@ -55,7 +55,9 @@
           data-bs-parent="#settingsAccordion"
         >
           <div class="accordion-body">
-            <div id="MQTTManager" class="card -card-body p-2"></div>
+            <div>
+              <MQTTConfig />
+            </div>
           </div>
         </div>
       </div>
@@ -64,8 +66,10 @@
 </template>
 
 <script>
-import DevicesTable from "../components/DevicesTable";
-import NewDeviceForm from "../components/NewDeviceForm";
+import DevicesTable from "../components/DevicesTable"
+import NewDeviceForm from "../components/NewDeviceForm"
+import MQTTConfig from '../components/MQTTConfig'
+
 import Card from "../components/Card";
 export default {
   name: "Manager",
@@ -89,7 +93,8 @@ export default {
   components: {
     NewDeviceForm,
     DevicesTable,
-    Card
+    Card,
+    MQTTConfig
   }
 };
 </script>
