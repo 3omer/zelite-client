@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const BASE_URL = "https://f71e8b96-2bd9-4d49-bfa5-47840cebaf35.mock.pstmn.io/api/v1" ||'http://localhost:5000/api/v1'
+const BASE_URL = 'http://localhost:5000/api/v1' ||
+"https://f71e8b96-2bd9-4d49-bfa5-47840cebaf35.mock.pstmn.io/api/v1"
 
 // config axios
 axios.defaults.baseURL = BASE_URL
@@ -91,6 +92,8 @@ const getDevices = (token) => {
 }
 
 const postDevice = (token, device) => {
+    console.log(device);
+    
     return axios.post(ENDPOINTS.devices, device, { headers: authHeader(token) })
     .then(res => {
         return res.data
@@ -99,6 +102,15 @@ const postDevice = (token, device) => {
         console.error(err)
         return Promise.reject(axiosErrorToMsg(err))
         
+    })
+}
+
+const deleteDevice = (token, deviceKey) => {
+    const url = ENDPOINTS.devices + "/" + deviceKey
+    return axios.delete(url, { headers: authHeader(token) } )
+    .catch(err => {
+        console.error(err)
+        return Promise.reject(axiosErrorToMsg(err))
     })
 }
 
@@ -121,5 +133,6 @@ export {
     login,
     logout,
     getDevices,
-    postDevice
+    postDevice,
+    deleteDevice
 }
