@@ -30,6 +30,7 @@
 
 <script>
 import { deleteDevice } from '../services/api'
+import { types } from '../store/mutations-types';
 
 export default {
     computed: { devices() { return this.$store.state.devices } },
@@ -40,6 +41,7 @@ export default {
         deleteDevice(this.$store.getters.token, key)
         .then(() => {
           console.log('Deleted')
+          this.$store.commit(types.DELETE_DEVICE, key)
         })
         .catch(errorMsg => {
           console.log(errorMsg);
