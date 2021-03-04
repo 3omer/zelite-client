@@ -45,13 +45,13 @@ export default new Vuex.Store({
     [types.DELETE_DEVICE](state, deviceKey) {
       const index = state.devices.findIndex(one => one.key == deviceKey)
       Vue.delete(state.devices, index)
-    }
-  },
-  [types.SET_MQTT_CONFIG](state, MQTTConfig) {
-    Vue.set(state.MQTTConfig, 'username', MQTTConfig.username)
-    Vue.set(state.MQTTConfig, 'password', MQTTConfig.password)
-    Vue.set(state.MQTTConfig, 'host', MQTTConfig.host)
-    Vue.set(state.MQTTConfig, 'secure', MQTTConfig.secure)
+    },
+    [types.SET_MQTT_CONFIG](state, MQTTConfig) {
+      Vue.set(state.MQTTConfig, 'username', MQTTConfig.username)
+      Vue.set(state.MQTTConfig, 'password', MQTTConfig.password)
+      Vue.set(state.MQTTConfig, 'host', MQTTConfig.host)
+      Vue.set(state.MQTTConfig, 'secure', MQTTConfig.secure)
+    },
   },
   getters: {
     token: state => state.user.token,
