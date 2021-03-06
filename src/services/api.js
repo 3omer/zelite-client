@@ -120,7 +120,7 @@ const getMQTTConfig = (token) => {
     })
     .catch(err => {
         console.error(err)
-        Promise.reject(axiosErrorToMsg(err))
+        return Promise.reject(axiosErrorToMsg(err))
     })
 }
 
