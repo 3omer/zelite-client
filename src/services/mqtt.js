@@ -45,7 +45,7 @@ const setTopicListner = (myTopic, listnerFunc) => {
 
 const publishData = (myTopic, data) => {
     return new Promise((resolve, reject) => {
-        client.publish(myTopic, data, (err) => {
+        client.publish(myTopic, data, { qos: 1, retain: true } , (err) => {
             if (err) reject(err)
             resolve(true)
         })
