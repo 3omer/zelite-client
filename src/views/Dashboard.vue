@@ -15,11 +15,30 @@ export default {
     SwitchList,
     SensorList
   },
-  created() {
-    console.log("Dashboard:created()")
-    this.$store.dispatch('loadDevices')
-    this.$store.dispatch('loadMQTTConfig')
+  data() {
+    return {
+      mqttClient: undefined
+    };
   },
+  computed: {
+    MQTTConfig() {
+      return this.$store.state.MQTTConfig;
+    },
+    mqttStatus() {
+      if (this.mqttClient.connected) return "connected";
+      return "disconnected";
+    }
+  },
+  created() {
+    console.log("Dashboard:created()");
+    // load user devices
+    this.$store.dispatch("loadDevices").then(() => {
+      this.$store.dispatch("loadMQTTConfig").then(() => {
+        console.log("Dashboard: Devices loaded, MQTT is configured");
+        this.$store.dispatch("connectMqtt");
+      });
+    });
+  }
 };
 </script>
 

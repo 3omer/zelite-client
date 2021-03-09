@@ -27,14 +27,24 @@
 </template>
 
 <script>
+import mqtt from '../services/mqtt'
+
 export default {
   name: "SensorDevice",
   props: {
     device: Object
   },
-  created() {
-    // console.log(this.device.key, 'created');
-  }
+  mounted() {
+    mqtt.setTopicListner(this.device.topic, (message) => {
+      this.device.value = message
+    }).then(() => {
+      console.log('Sesnor.lisnter - set');
+    })
+    .catch(err => {
+      console.log("sensor.listner - err", err);
+      
+    })
+}
 };
 </script>
 

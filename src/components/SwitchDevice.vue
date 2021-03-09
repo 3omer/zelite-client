@@ -24,16 +24,57 @@
       </div>
     </div>
     <div class="options col d-flex flex-column">
-      <button class="btn action btn-primary shadow-sm rounded">Turn off</button>
+      <button
+        id="power"
+        @click="btnPower"
+        class="btn action btn-primary shadow-sm rounded"
+      >{{btnTitle}}</button>
     </div>
   </div>
 </template>
 
 <script>
+import mqtt from '../services/mqtt'
+
 export default {
   name: "SwitchDevice",
   props: {
     device: Object
+  },
+  created() {
+    mqtt.setTopicListner(this.device.topic, (message) => {
+      console.log('switch', this.device.name, ' received ', message)
+      this.device.isOn = message === "1" ? true : false
+    })
+    .then(() => {
+      console.log("switch.listner - set")
+    })
+    .catch(err => {
+      console.log("switch.listner - error", err);
+    })
+  },
+  data() {
+    return {
+      mqttClient: undefined
+    };
+  },
+  computed: {
+    btnTitle() {
+      return this.device.isOn ? "TURN OFF" : "TURN ON";
+    }
+  },
+  methods: {
+    btnPower() {
+      const payload = this.device.isOn ? "0": "1"
+      mqtt.publishData(this.device.topic, payload).then(() => {
+        console.log("switch state published");
+      })
+      .catch(err => {
+        console.log("swicth.publish.error", err);
+        
+      })
+      
+    }
   }
 };
 </script>

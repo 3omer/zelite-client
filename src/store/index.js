@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { getDevices, getMQTTConfig } from '../services/api'
+import mqtt from "../services/mqtt"
+
 import { types } from './mutations-types'
 
 Vue.use(Vuex)
@@ -18,10 +20,13 @@ export default new Vuex.Store({
   state: {
     user,
     devices: [],
+    devicesLoading: true,
     MQTTConfig: {
       username: '',
-      password: ''
-    }
+      password: '',
+      host: ''
+    },
+    mqttStatus: 'not connected'
   },
   mutations: {
     [types.SET_USER](state, newUser) {
@@ -45,15 +50,39 @@ export default new Vuex.Store({
     [types.ADD_DEVICE](state, device) {
       state.devices.push(device)
     },
+
+    [types.SET_DEVICE_STATE](state, payload) {
+      console.log("MUTATUIN:SET_DEVICE_STATE", payload.key);
+
+      const targetIndex = state.devices.findIndex((one) => one.key == payload.key)
+      const target = state.devices[targetIndex]
+
+      if (target.type === "switch") {
+        target.isOn = payload.newState
+      } else {
+        target.value = payload.newState
+      }
+
+      Vue.set(state.devices, targetIndex, target)
+    },
+
+    [types.SET_DEVICES_LOADING](state, isLoading ) {
+      state.devicesLoading = isLoading
+    },
+
     [types.DELETE_DEVICE](state, deviceKey) {
       const index = state.devices.findIndex(one => one.key == deviceKey)
       Vue.delete(state.devices, index)
     },
+
     [types.SET_MQTT_CONFIG](state, MQTTConfig) {
       Vue.set(state.MQTTConfig, 'username', MQTTConfig.username)
       Vue.set(state.MQTTConfig, 'password', MQTTConfig.password)
       Vue.set(state.MQTTConfig, 'host', MQTTConfig.host)
       Vue.set(state.MQTTConfig, 'secure', MQTTConfig.secure)
+    },
+    [types.SET_MQTT_STATUS](state, status) {
+      state.mqttStatus = status
     },
   },
   getters: {
@@ -65,31 +94,59 @@ export default new Vuex.Store({
   },
   actions: {
     loadDevices({ commit, getters }) {
-      getDevices(getters.token)
+      commit(types.SET_DEVICES_LOADING, true)
+      commit(types.SET_DEVICES, [])
+      return getDevices(getters.token)
         .then(devices => {
-          console.log("Devices loaded - count", devices.length);
-          commit(types.SET_DEVICES, devices);
+          console.log("Devices loaded - count", devices.length)
+          devices = devices.map(device => {
+            if (device.type === "switch") device.isOn = undefined
+            else device.value = undefined
+            return device
+          })
+          commit(types.SET_DEVICES, devices)
+          commit(types.SET_DEVICES_LOADING, false)
+
         })
         .catch(err => {
           console.log("Loading data failed", err)
         });
     },
+
     loadMQTTConfig({ commit, getters }) {
-      getMQTTConfig(getters.token)
+      return getMQTTConfig(getters.token)
         .then(config => {
+          console.log('MQTTConfig- loaded', { config });
           // TODO: load dev server from env
-          config.host = "127.0.0.1"
-          config.port = 8883
+          config.host = "ws://127.0.0.1:8883"
           config.secure = false
           commit(types.SET_MQTT_CONFIG, config)
-          console.log('MQTTConfig- set', { config });
         })
         .catch(errMsg => {
           // TODO: state to hold Global error
           console.log(errMsg);
         })
-    }
-  },
-  modules: {
-  }
+    },
+
+    connectMqtt({ commit }) {
+      const client = mqtt.getClient("ws://localhost:8883")
+      
+        client.on('connect', () => {
+          console.log('MQTT connected')
+          commit(types.SET_MQTT_STATUS, 'connected')
+        })
+
+        client.on('disconect', () => {
+          commit(types.SET_MQTT_STATUS, 'disconnected')
+        })
+        // handle mqtt error
+        client.on('error', (err) => {
+          console.log("MQTT-ERROR:", err.message)
+        })
+      },
+      doSubscribe(payload) {
+        mqtt.setTopicListner(payload.topic)
+
+      }
+    },
 })
