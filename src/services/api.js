@@ -5,7 +5,7 @@ const BASE_URL = 'http://localhost:5000/api/v1' ||
 
 // config axios
 axios.defaults.baseURL = BASE_URL
-axios.defaults.timeout = 10000
+// axios.defaults.timeout = 30000
 
 
 /*
