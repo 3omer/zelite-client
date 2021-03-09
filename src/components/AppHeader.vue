@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary p-1">
       <a class="navbar-brand bg-primary shadow-none align-bottom" href="/">
         <span>
           <svg
@@ -22,28 +22,16 @@
         class="navbar-toggler"
         type="button"
         data-bs-toggle="collapse"
-        data-bs-target="#navbarTogglerDemo02"
-        aria-controls="navbarTogglerDemo02"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
+        data-bs-target="#navbarToggleMenu"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    </nav>
+    <div class="collapse navbar-collapse" id="navbarToggleMenu">
         <div class="d-md-none">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0 align-items-center">
-            <li class="nav-item active border-bottom">
-              <router-link to="home" class="nav-link">Home</router-link>
-            </li>
-            <li class="nav-item border-bottom">
-              <router-link to="about" class="nav-link">About</router-link>
-            </li>
-          </ul>
+          <NavLinks/>
         </div>
       </div>
-    </nav>
-    <!-- only if user is authenticated -->
     <div
       v-if="user.email"
       class="user-status d-flex justify-content-between align-items-center border p-2 px-3"
@@ -61,10 +49,14 @@
 
 <script>
 import { logout } from "../services/api"
+import NavLinks from './NavLinks'
 // TODO: Add status/notifiction bar to display app level errors
 
 export default {
   name: "AppHeader",
+  components:{
+    NavLinks
+  },
   computed: {
     user() {
       return this.$store.state.user;

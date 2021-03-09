@@ -19,9 +19,14 @@
         </td>
 
         <td>
-          <button class="btn btn-danger" @click="btnDelete(device.key)">
-            <i class="bi bi-trash"></i>
-          </button>
+          <eleActionBtn
+            :isDisabled="isDisabled"
+            :isLoading="isLoading"
+            class="btn-danger"
+            @click="btnDelete(device.key)"
+          >
+            <i slot="icon" class="bi bi-trash"></i>
+          </eleActionBtn>
         </td>
       </tr>
     </tbody>
@@ -29,25 +34,39 @@
 </template>
 
 <script>
-import { deleteDevice } from '../services/api'
-import { types } from '../store/mutations-types';
-
+import { deleteDevice } from "../services/api";
+import { types } from "../store/mutations-types";
+import eleActionBtn from "./ele-action-btn";
 export default {
-    computed: { devices() { return this.$store.state.devices } },
-    name: "DevicesTable",
-    methods: {
-      btnDelete(key) {
-        console.log('btnDelete()', key)
-        deleteDevice(this.$store.getters.token, key)
+  name: "DevicesTable",
+  components: { eleActionBtn },
+  data() {
+    return {
+      isLoading: false,
+      isDisabled: false
+    };
+  },
+  computed: {
+    devices() {
+      return this.$store.state.devices
+    }
+  },
+  methods: {
+    btnDelete(key) {
+      console.log("btnDelete()", key);
+      this.isLoading = this.isDisabled = true;
+      deleteDevice(this.$store.getters.token, key)
         .then(() => {
-          console.log('Deleted')
-          this.$store.commit(types.DELETE_DEVICE, key)
+          console.log("Deleted");
+          this.$store.commit(types.DELETE_DEVICE, key);
+          this.isLoading = this.isDisabled = false;
         })
         .catch(errorMsg => {
           console.log(errorMsg);
-        })
-      }
+          this.isLoading = this.isDisabled = false;
+        });
     }
+  }
 };
 </script>
 

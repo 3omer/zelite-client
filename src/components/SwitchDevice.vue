@@ -24,39 +24,55 @@
       </div>
     </div>
     <div class="options col d-flex flex-column">
-      <button
-        id="power"
+      <ele-action-btn
+        :isLoading="isLoading"
+        :isDisabled="isDisabled"
+        :title="btnTitle"
         @click="btnPower"
-        class="btn action btn-primary shadow-sm rounded"
-      >{{btnTitle}}</button>
+        class="btn-primary"
+      >
+        <i slot="icon" class="bi bi-power"></i>
+      </ele-action-btn>
     </div>
   </div>
 </template>
 
 <script>
-import mqtt from '../services/mqtt'
+import mqtt from "../services/mqtt";
+import eleActionBtn from "./ele-action-btn";
 
 export default {
   name: "SwitchDevice",
+  components: {
+    eleActionBtn
+  },
   props: {
     device: Object
   },
-  created() {
-    mqtt.setTopicListner(this.device.topic, (message) => {
-      console.log('switch', this.device.name, ' received ', message)
-      this.device.isOn = message === "1" ? true : false
-    })
-    .then(() => {
-      console.log("switch.listner - set")
-    })
-    .catch(err => {
-      console.log("switch.listner - error", err);
-    })
-  },
   data() {
     return {
-      mqttClient: undefined
+      isLoading: true,
+      isDisabled: true
     };
+  },
+  created() {
+    // lock the button untill you get last state from the server
+    this.lockBtn(true);
+
+    mqtt
+      .setTopicListner(this.device.topic, message => {
+        console.log("switch", this.device.name, " received ", message);
+        this.device.isOn = message === "1" ? true : false;
+
+        // unlock when we recieve a message from server
+        this.lockBtn(false);
+      })
+      .then(() => {
+        console.log("switch.listner - set");
+      })
+      .catch(err => {
+        console.log("switch.listner - error", err);
+      });
   },
   computed: {
     btnTitle() {
@@ -65,15 +81,20 @@ export default {
   },
   methods: {
     btnPower() {
-      const payload = this.device.isOn ? "0": "1"
-      mqtt.publishData(this.device.topic, payload).then(() => {
-        console.log("switch state published");
-      })
-      .catch(err => {
-        console.log("swicth.publish.error", err);
-        
-      })
-      
+      // lock btn until we get reseponse
+      this.lockBtn(true);
+      const payload = this.device.isOn ? "0" : "1";
+      mqtt
+        .publishData(this.device.topic, payload)
+        .then(() => {
+          console.log("switch state published");
+        })
+        .catch(err => {
+          console.log("swicth.publish.error", err);
+        });
+    },
+    lockBtn(isLocked) {
+      this.isLoading = this.isDisabled = isLocked;
     }
   }
 };
