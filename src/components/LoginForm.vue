@@ -1,6 +1,6 @@
 <template>
-  <Form>
-    <template v-slot:title>Login</template>
+  <Form class="p-2">
+    <template v-slot:title><h3>Login</h3></template>
     <template v-if="error" v-slot:errors>{{error}}</template>
     <template v-slot:form>
       <form @submit.prevent="onSubmit" id="loginForm" method="POST" novalidate>
@@ -34,8 +34,14 @@
         </div>
 
         <div class="border-top p-2 text-center">
-          <button type="submit" class="btn btn-sm btn-primary m-3">Login</button>
-          <router-link class="btn btn-sm btn-outline-primary" to="signup">I don't have account</router-link>
+           <eleActionBtn
+            :title="'Login'"
+            :isDisabled="isDisabled"
+            :isLoading="isDisabled"
+            class="btn-primary mx-2"
+            type="submit"
+          />
+          <router-link class="btn btn-outline-primary" to="signup">I don't have account</router-link>
         </div>
       </form>
     </template>
@@ -44,6 +50,8 @@
 
 <script>
 import Form from "./Form"
+import eleActionBtn from "./ele-action-btn";
+
 import { login } from '../services/api'
 
 export default {
@@ -52,26 +60,34 @@ export default {
     return {
       email: "",
       password: "",
-      error: null
+      error: null,
+      isDisabled: false
     }
   },
   methods: {
     onSubmit() {
       console.log('LoginForm:onSubmit()')
+      this.isDisabled = true
+      this.error = ''
       login(this.email, this.password)
       .then(user => {
         console.log('login passed');
         this.error = null
         this.$store.commit('SET_USER', user)
+        this.$router.push('dashboard')
+        this.isDisabled = false
       })
       .catch(error => {
         console.error('login failed', error);
         this.error = error
+        this.isDisabled = false
+        this.password = ''
       })
     },
   },
   components: {
-    Form
+    Form,
+    eleActionBtn
   }
 };
 </script>

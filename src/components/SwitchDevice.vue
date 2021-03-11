@@ -74,6 +74,10 @@ export default {
         console.log("switch.listner - error", err);
       });
   },
+  beforeDestroy() {
+    // TODO: not all listners, only specfic to this topic
+    mqtt.getClient().removeAllListeners()
+  },
   computed: {
     btnTitle() {
       return this.device.isOn ? "TURN OFF" : "TURN ON";

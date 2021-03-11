@@ -71,6 +71,7 @@ export default {
           console.log("Logging out - success", msg)
           // TODO: display msg on status bar
           this.$store.commit('DEL_USER')
+          this.$router.push('/')
         })
         .catch(errMsg => {
           console.log("Logging out - failed", errMsg)

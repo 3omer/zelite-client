@@ -23,12 +23,14 @@ const routes = [
   {
     path: '/signup',
     name: 'signup',
-    component: Signup
+    component: Signup,
+    meta: { forAnonymous: true }
   },
   {
     path: '/login',
     name: 'login',
-    component: Login
+    component: Login,
+    meta: { forAnonymous: true }
   },
   {
     path: '/manager',
@@ -55,8 +57,13 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {  
   const user = router.app.$store.state.user
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  if (requiresAuth && ! user.token) next('login')
-  else next()
+  const forAnonymous = to.matched.some(record => record.meta.forAnonymous)
+
+  if (requiresAuth && ! user.token) return next('login')
+
+  if (forAnonymous && user.token) return next('home')
+  
+  return next()
 })
 
 export default router
