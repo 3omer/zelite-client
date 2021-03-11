@@ -1,5 +1,6 @@
 <template>
-  <div class="switch row p-2 m-1 my-3 bg-white shadow-sm rounded-3">
+<div class="switch p-2 m-1 my-3 bg-white shadow-sm rounded-3">
+  <div class="row">
     <div class="icon col-2 rounded-circle d-flex align-items-center justify-content-center">
       <img class="img-fluid" src="@/assets/switch1.png" width="100px" />
     </div>
@@ -35,6 +36,7 @@
       </ele-action-btn>
     </div>
   </div>
+</div>
 </template>
 
 <script>

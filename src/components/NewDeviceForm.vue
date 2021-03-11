@@ -46,6 +46,9 @@
           </select>
         </div>
         <div class="border-top p-2">
+          <div v-if="info" class="alert alert-success m-1">
+            <span>{{info}}</span>
+          </div>
           <eleActionBtn
             :title="'Create'"
             :isDisabled="isDisabled"
@@ -78,6 +81,7 @@ export default {
       },
       isLoading: false,
       isDisabled: false,
+      info: "",
       error: ""
     };
   },
@@ -86,6 +90,8 @@ export default {
       console.log("onSubmit()");
       this.isDisabled = true;
       this.isLoading = true;
+      this.info = "";
+
       const data = {
         name: this.form.name,
         place: this.form.port,
@@ -99,6 +105,8 @@ export default {
             this.error = "Sorry something went wrong";
           }
           this.$store.commit(types.ADD_DEVICE, device);
+          this.form = { name: "", place: "", port: undefined };
+          this.info = "Device is added successfully !";
           this.isLoading = false;
           this.isDisabled = false;
         })

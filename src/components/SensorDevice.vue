@@ -1,9 +1,9 @@
 <template>
   <div class="sensor d-flex m-1 p-1 bg-white rounded-pill shadow-sm">
     <div class="sensor-value bg-light m-1 rounded-circle text-center p-3 border border-secondary">
-      <span class="text-small">{{device.value || "N/A"}}</span>
+      <span class="text-small">{{device.value || "-/-"}}</span>
     </div>
-    <div class="device-details">
+    <div class="device-details align-self-end">
       <div class="device-name h6">
         <span>
           <i class="bi bi-chevron-right"></i>
@@ -54,8 +54,10 @@ export default {
 }
 
 .sensor-value {
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   line-height: 1.5em;
-  min-width: 20px;
+  /* min-width: 20px; */
+  width: 80px;
+  height: 80px;
 }
 </style>
