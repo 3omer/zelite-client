@@ -30,8 +30,8 @@ export default {
 
 <style>
 .gradient-blue {
-  background-color: #045de9;
-  background-image: linear-gradient(150deg, #045de9 0%, #09c6f9 74%);
+  background-color: #045de9 !important ;
+  background-image: linear-gradient(150deg, #045de9 0%, #09c6f9 74%) !important;
 }
 
 .gradient-light {

@@ -38,7 +38,7 @@ export default {
 
 <style>
 .gradient-reddish {
-  background-color: #90d5ec;
-  background-image: linear-gradient(270deg, #fc575e 0%, #90d5ec 50%);
+  background-color: #90d5ec !important;
+  background-image: linear-gradient(223deg, #045de9 0%, #09c6f9 74%) !important;
 }
 </style>
