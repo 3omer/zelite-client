@@ -1,10 +1,10 @@
 <template>
 <div class="switch p-2 m-1 my-3 bg-white shadow-sm rounded-3">
   <div class="row">
-    <div class="icon col-2 rounded-circle d-flex align-items-center justify-content-center">
+    <div class="icon col-3 col-sm-2 rounded-circle d-flex align-items-center justify-content-center">
       <img class="img-fluid" src="@/assets/switch1.png" width="100px" />
     </div>
-    <div class="device-details col-4 px-2 m-1">
+    <div class="device-details col-7 col-sm-4  px-2 m-1">
       <div class="device-name h6">
         <span>
           <i class="bi bi-chevron-right"></i>
@@ -24,7 +24,7 @@
         </span>
       </div>
     </div>
-    <div class="options col d-flex flex-column">
+    <div class="options col-12 col-sm-5 mx-auto my-1 my-sm-0 d-flex flex-column">
       <ele-action-btn
         :isLoading="isLoading"
         :isDisabled="isDisabled"
