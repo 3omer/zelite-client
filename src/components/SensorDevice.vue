@@ -1,25 +1,25 @@
 <template>
   <div class="sensor d-flex m-1 p-1 bg-white rounded-pill shadow-sm">
     <div class="sensor-value bg-light m-1 rounded-circle text-center p-3 border border-secondary">
-      <span class="text-small">{{device.value || "-/-"}}</span>
+      <span class="text-small">{{ device.value || "-/-" }}</span>
     </div>
     <div class="device-details align-self-end">
       <div class="device-name h6">
         <span>
-          <i class="bi bi-chevron-right"></i>
-          {{device.name}}
+          <i class="bi bi-chevron-right" />
+          {{ device.name }}
         </span>
       </div>
       <div class="device-place">
         <span>
-          <i class="bi bi-geo-alt"></i>
-          {{device.place}}
+          <i class="bi bi-geo-alt" />
+          {{ device.place }}
         </span>
       </div>
       <div class="device-port">
         <span>
-          <i class="bi bi-cpu"></i>
-          {{device.port}}
+          <i class="bi bi-cpu" />
+          {{ device.port }}
         </span>
       </div>
     </div>

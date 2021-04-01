@@ -1,42 +1,49 @@
 <template>
-<div class="switch p-2 m-1 my-3 bg-white shadow-sm rounded-3">
-  <div class="row">
-    <div class="icon col-3 col-sm-2 rounded-circle d-flex align-items-center justify-content-center">
-      <img class="img-fluid" src="@/assets/switch1.png" width="100px" />
-    </div>
-    <div class="device-details col-7 col-sm-4  px-2 m-1">
-      <div class="device-name h6">
-        <span>
-          <i class="bi bi-chevron-right"></i>
-          {{device.name}}
-        </span>
+  <div class="switch p-2 m-1 my-3 bg-white shadow-sm rounded-3">
+    <div class="row">
+      <div class="icon col-3 col-sm-2 rounded-circle d-flex align-items-center justify-content-center">
+        <img
+          class="img-fluid"
+          src="@/assets/switch1.png"
+          width="100px"
+        >
       </div>
-      <div class="device-place">
-        <span>
-          <i class="bi bi-geo-alt"></i>
-          {{device.place}}
-        </span>
+      <div class="device-details col-7 col-sm-4  px-2 m-1">
+        <div class="device-name h6">
+          <span>
+            <i class="bi bi-chevron-right" />
+            {{ device.name }}
+          </span>
+        </div>
+        <div class="device-place">
+          <span>
+            <i class="bi bi-geo-alt" />
+            {{ device.place }}
+          </span>
+        </div>
+        <div class="device-port">
+          <span>
+            <i class="bi bi-cpu" />
+            {{ device.port }}
+          </span>
+        </div>
       </div>
-      <div class="device-port">
-        <span>
-          <i class="bi bi-cpu"></i>
-          {{device.port}}
-        </span>
+      <div class="options col-12 col-sm-5 mx-auto my-1 my-sm-0 d-flex flex-column">
+        <ele-action-btn
+          :is-loading="isLoading"
+          :is-disabled="isDisabled"
+          :title="btnTitle"
+          @click="btnPower"
+          class="btn-primary"
+        >
+          <i
+            slot="icon"
+            class="bi bi-power"
+          />
+        </ele-action-btn>
       </div>
-    </div>
-    <div class="options col-12 col-sm-5 mx-auto my-1 my-sm-0 d-flex flex-column">
-      <ele-action-btn
-        :isLoading="isLoading"
-        :isDisabled="isDisabled"
-        :title="btnTitle"
-        @click="btnPower"
-        class="btn-primary"
-      >
-        <i slot="icon" class="bi bi-power"></i>
-      </ele-action-btn>
     </div>
   </div>
-</div>
 </template>
 
 <script>

@@ -1,9 +1,21 @@
 <template>
   <Form class="p-2">
-    <template v-slot:title><h3>Login</h3></template>
-    <template v-if="error" v-slot:errors>{{error}}</template>
+    <template v-slot:title>
+      <h3>Login</h3>
+    </template>
+    <template
+      v-if="error"
+      v-slot:errors
+    >
+      {{ error }}
+    </template>
     <template v-slot:form>
-      <form @submit.prevent="onSubmit" id="loginForm" method="POST" novalidate>
+      <form
+        @submit.prevent="onSubmit"
+        id="loginForm"
+        method="POST"
+        novalidate
+      >
         <div class="form-group">
           <input
             v-model="email"
@@ -14,8 +26,8 @@
             placeholder="Email"
             autocomplete="email"
             required
-          />
-          <div class="invalid-feedback"></div>
+          >
+          <div class="invalid-feedback" />
         </div>
 
         <div class="form-group">
@@ -29,19 +41,24 @@
             placeholder="Password"
             autocomplete="current-password"
             required
-          />
-          <div class="invalid-feedback"></div>
+          >
+          <div class="invalid-feedback" />
         </div>
 
         <div class="border-top p-2 text-center">
-           <eleActionBtn
+          <eleActionBtn
             :title="'Login'"
-            :isDisabled="isDisabled"
-            :isLoading="isDisabled"
+            :is-disabled="isDisabled"
+            :is-loading="isDisabled"
             class="btn-primary mx-2"
             type="submit"
           />
-          <router-link class="btn btn-outline-primary" to="signup">I don't have account</router-link>
+          <router-link
+            class="btn btn-outline-primary"
+            to="signup"
+          >
+            I don't have account
+          </router-link>
         </div>
       </form>
     </template>

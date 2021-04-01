@@ -3,9 +3,18 @@
     <template v-slot:title>
       <h3>Create Account</h3>
     </template>
-    <template v-if="error" v-slot:errors>{{error}}</template>
+    <template
+      v-if="error"
+      v-slot:errors
+    >
+      {{ error }}
+    </template>
     <template v-slot:form>
-      <form @submit.prevent="onSubmit" id="registerForm" method="POST">
+      <form
+        @submit.prevent="onSubmit"
+        id="registerForm"
+        method="POST"
+      >
         <div class="form-group">
           <input
             v-model="username"
@@ -16,8 +25,8 @@
             value
             placeholder="Username"
             required
-          />
-          <div class="invalid-feedback"></div>
+          >
+          <div class="invalid-feedback" />
         </div>
 
         <div class="form-group">
@@ -31,8 +40,8 @@
             placeholder="Email"
             autocomplete="email"
             required
-          />
-          <div class="invalid-feedback"></div>
+          >
+          <div class="invalid-feedback" />
         </div>
 
         <div class="form-group">
@@ -46,18 +55,23 @@
             placeholder="Password"
             autocomplete="new-password"
             required
-          />
-          <div class="invalid-feedback"></div>
+          >
+          <div class="invalid-feedback" />
         </div>
         <div class="border-top p-2">
           <eleActionBtn
             :title="'Register'"
-            :isDisabled="isDisabled"
-            :isLoading="isDisabled"
+            :is-disabled="isDisabled"
+            :is-loading="isDisabled"
             class="btn-primary mx-2"
             type="submit"
           />
-          <router-link to="login" class="btn btn-outline-primary">I have account</router-link>
+          <router-link
+            to="login"
+            class="btn btn-outline-primary"
+          >
+            I have account
+          </router-link>
           <!-- <a class="btn btn-outline-primary" href="/login">I have account</a> -->
         </div>
       </form>

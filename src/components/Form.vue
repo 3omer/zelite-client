@@ -1,13 +1,16 @@
 <template>
   <Card>
     <div v-if="$slots.title">
-      <slot name="title"></slot>
-      <hr />
+      <slot name="title" />
+      <hr>
     </div>
-    <div v-if="$slots.errors" class="alert alert-danger">
-      <slot name="errors"></slot>
+    <div
+      v-if="$slots.errors"
+      class="alert alert-danger"
+    >
+      <slot name="errors" />
     </div>
-    <slot name="form"></slot>
+    <slot name="form" />
   </Card>
 </template>
 

@@ -4,8 +4,12 @@
       <span class="badge gradient-blue px-3">Switches</span>
     </div>
     <div class="mx-0 mx-md-2">
-      <ele-spinner v-if="$store.state.devicesLoading"/>
-      <SwitchDevice v-bind:device="device" v-bind:key="device.id" v-for="device in switches" />
+      <ele-spinner v-if="$store.state.devicesLoading" />
+      <SwitchDevice
+        :device="device"
+        :key="device.id"
+        v-for="device in switches"
+      />
     </div>
   </Card>
 </template>

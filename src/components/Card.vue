@@ -1,6 +1,6 @@
 <template>
   <div class="rounded-3 shadow-sm">
-      <slot></slot>
+    <slot />
   </div>
 </template>
 

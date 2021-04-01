@@ -5,7 +5,11 @@
     </div>
     <ele-spinner v-if="$store.state.devicesLoading" />
     <div class="d-flex flex-wrap mx-0 mx-md-2 device-list">
-      <SensorDevice :key="device.key" :device="device" v-for="device in sensors" />
+      <SensorDevice
+        :key="device.key"
+        :device="device"
+        v-for="device in sensors"
+      />
     </div>
   </Card>
 </template>

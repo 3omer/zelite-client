@@ -1,8 +1,18 @@
 <template>
   <Form class="shadow-none">
-    <template v-if="error" v-slot:errors>{{error}}</template>
+    <template
+      v-if="error"
+      v-slot:errors
+    >
+      {{ error }}
+    </template>
     <template v-slot:form>
-      <form @submit.prevent="onSubmit" id="loginForm" method="POST" novalidate>
+      <form
+        @submit.prevent="onSubmit"
+        id="loginForm"
+        method="POST"
+        novalidate
+      >
         <div class="form-group">
           <input
             v-model="form.name"
@@ -13,7 +23,7 @@
             placeholder="Your device name eg. light"
             autocomplete="name"
             required
-          />
+          >
         </div>
 
         <div class="form-group">
@@ -26,7 +36,7 @@
             placeholder="place"
             autocomplete="place"
             required
-          />
+          >
         </div>
         <div class="form-group">
           <input
@@ -36,23 +46,37 @@
             v-model="form.port"
             placeholder="Port number"
             type="number"
-          />
+          >
         </div>
         <div class>
-          <select class="form-select" id="type" name="type" v-model="form.type">
-            <option selected>Select a device type from this menu</option>
-            <option value="switch">Switch</option>
-            <option value="sensor">Sensor</option>
+          <select
+            class="form-select"
+            id="type"
+            name="type"
+            v-model="form.type"
+          >
+            <option selected>
+              Select a device type from this menu
+            </option>
+            <option value="switch">
+              Switch
+            </option>
+            <option value="sensor">
+              Sensor
+            </option>
           </select>
         </div>
         <div class="border-top p-2">
-          <div v-if="info" class="alert alert-success m-1">
-            <span>{{info}}</span>
+          <div
+            v-if="info"
+            class="alert alert-success m-1"
+          >
+            <span>{{ info }}</span>
           </div>
           <eleActionBtn
             :title="'Create'"
-            :isDisabled="isDisabled"
-            :isLoading="isLoading"
+            :is-disabled="isDisabled"
+            :is-loading="isLoading"
             class="btn-primary"
             type="submit"
           />

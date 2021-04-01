@@ -1,31 +1,53 @@
 <template>
-  <table id="deviceManager" class="table table-hover">
+  <table
+    id="deviceManager"
+    class="table table-hover"
+  >
     <thead class="thead-dark">
       <tr>
-        <th scope="col">Port</th>
-        <th scope="col">Name</th>
-        <th scope="col">Place</th>
-        <th scope="col">MQTT-Topic</th>
-        <th scope="col"></th>
+        <th scope="col">
+          Port
+        </th>
+        <th scope="col">
+          Name
+        </th>
+        <th scope="col">
+          Place
+        </th>
+        <th scope="col">
+          MQTT-Topic
+        </th>
+        <th scope="col" />
       </tr>
     </thead>
     <tbody>
-      <tr :key="device.key" v-for="device in devices">
-        <th>{{device.port}}</th>
-        <td>{{device.name}}</td>
-        <td>{{device.place}}</td>
+      <tr
+        :key="device.key"
+        v-for="device in devices"
+      >
+        <th>{{ device.port }}</th>
+        <td>{{ device.name }}</td>
+        <td>{{ device.place }}</td>
         <td>
-          <input class="form-control" type="text" :value="device.topic" readonly />
+          <input
+            class="form-control"
+            type="text"
+            :value="device.topic"
+            readonly
+          >
         </td>
 
         <td>
           <eleActionBtn
-            :isDisabled="isDisabled"
-            :isLoading="isLoading"
+            :is-disabled="isDisabled"
+            :is-loading="isLoading"
             class="btn-danger"
             @click="btnDelete(device.key)"
           >
-            <i slot="icon" class="bi bi-trash"></i>
+            <i
+              slot="icon"
+              class="bi bi-trash"
+            />
           </eleActionBtn>
         </td>
       </tr>

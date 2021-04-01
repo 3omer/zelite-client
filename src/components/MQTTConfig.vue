@@ -1,18 +1,36 @@
 <template>
   <div>
     <h5>MQTT Credentilas</h5>
-    <div class="alert alert-warning">Keep this secret</div>
+    <div class="alert alert-warning">
+      Keep this secret
+    </div>
 
     <div class="form-group">
-      <label for="username" class>username</label>
+      <label
+        for="username"
+        class
+      >username</label>
       <Toggled :flag="userConfirmed">
-        <input v-model="config.username" type="text" class="form-control" id="username" />
+        <input
+          v-model="config.username"
+          type="text"
+          class="form-control"
+          id="username"
+        >
       </Toggled>
     </div>
     <div class="form-group">
-      <label for="password" class>password</label>
+      <label
+        for="password"
+        class
+      >password</label>
       <Toggled :flag="userConfirmed">
-        <input v-model="config.password" type="text" class="form-control" id="password" />
+        <input
+          v-model="config.password"
+          type="text"
+          class="form-control"
+          id="password"
+        >
       </Toggled>
     </div>
 
@@ -23,21 +41,36 @@
         name="confirmed"
         id="confirmed"
         class="form-check-input"
-      /> I know what I am doing
+      > I know what I am doing
     </div>
     <Toggled :flag="userConfirmed">
-      <button @click="btnChange" class="btn btn-danger mx-2">Change</button>
+      <button
+        @click="btnChange"
+        class="btn btn-danger mx-2"
+      >
+        Change
+      </button>
     </Toggled>
 
-    <hr />
+    <hr>
 
     <h5>Connection Settings</h5>
-    <div class="alert alert-danger">Do not change unless You know what are you doing</div>
+    <div class="alert alert-danger">
+      Do not change unless You know what are you doing
+    </div>
     <div class="form-group">
-      <label for="host" class>host</label>
+      <label
+        for="host"
+        class
+      >host</label>
 
       <div class="col">
-        <input :value="config.host" type="text" class="form-control" id="host" />
+        <input
+          :value="config.host"
+          type="text"
+          class="form-control"
+          id="host"
+        >
       </div>
     </div>
   </div>

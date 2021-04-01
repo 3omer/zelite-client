@@ -1,19 +1,31 @@
 <template>
   <div class="list-group-flush">
-    <router-link to="home" class="list-group-item list-group-item-action">
-      <i class="bi bi-house"></i>
+    <router-link
+      to="home"
+      class="list-group-item list-group-item-action"
+    >
+      <i class="bi bi-house" />
       Home
     </router-link>
-    <router-link to="dashboard" class="list-group-item list-group-item-action">
-      <i class="bi bi-speedometer"></i>
+    <router-link
+      to="dashboard"
+      class="list-group-item list-group-item-action"
+    >
+      <i class="bi bi-speedometer" />
       Dashboard
     </router-link>
-    <router-link to="manager" class="list-group-item list-group-item-action">
-      <i class="bi bi-gear"></i>
+    <router-link
+      to="manager"
+      class="list-group-item list-group-item-action"
+    >
+      <i class="bi bi-gear" />
       Manager
     </router-link>
-    <router-link to="about" class="list-group-item list-group-item-action">
-      <i class="bi bi-info-circle"></i>
+    <router-link
+      to="about"
+      class="list-group-item list-group-item-action"
+    >
+      <i class="bi bi-info-circle" />
       About
     </router-link>
   </div>
