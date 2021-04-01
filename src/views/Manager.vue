@@ -1,9 +1,15 @@
 <template>
   <div>
     <h5>Manager</h5>
-    <div class="accordion" id="settingsAccordion">
+    <div
+      class="accordion"
+      id="settingsAccordion"
+    >
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
+        <h2
+          class="accordion-header"
+          id="headingOne"
+        >
           <button
             class="accordion-button"
             type="button"
@@ -12,7 +18,7 @@
             aria-expanded="true"
             aria-controls="collapseOne"
           >
-            <i class="bi bi-ui-checks-grid"></i>
+            <i class="bi bi-ui-checks-grid" />
             Devices Manager
           </button>
         </h2>
@@ -24,8 +30,18 @@
         >
           <div class="accordion-body bg-light">
             <div class="mb-2">
-              <button class="btn btn-primary mx-2" @click="btnAddDevice">Add Device</button>
-              <button class="btn btn-primary mx-2" @click="btnMyDevices">My Devices</button>
+              <button
+                class="btn btn-primary mx-2"
+                @click="btnAddDevice"
+              >
+                Add Device
+              </button>
+              <button
+                class="btn btn-primary mx-2"
+                @click="btnMyDevices"
+              >
+                My Devices
+              </button>
             </div>
             <Card class="p-2 bg-white">
               <DevicesTable v-if="selectedComponent=='DevicesTable'" />
@@ -35,7 +51,10 @@
         </div>
       </div>
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingTwo">
+        <h2
+          class="accordion-header"
+          id="headingTwo"
+        >
           <button
             class="accordion-button collapsed"
             type="button"
@@ -44,7 +63,7 @@
             aria-expanded="false"
             aria-controls="collapseTwo"
           >
-            <i class="bi bi-globe"></i>
+            <i class="bi bi-globe" />
             MQTT Connection Manager
           </button>
         </h2>
