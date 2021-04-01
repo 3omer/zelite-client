@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = process.env.BACKEND_HOST || 'http://localhost:5000/api/v1'
+const BASE_URL = process.env.VUE_APP_BACKEND_HOST || 'http://localhost:5000/api/v1'
 
 // config axios
 axios.defaults.baseURL = BASE_URL

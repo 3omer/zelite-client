@@ -129,7 +129,7 @@ export default new Vuex.Store({
     },
 
     connectMqtt({ commit }) {
-      const host = "ws://localhost:8883"
+      const host = process.env.VUE_APP_MQTT_HOST || "ws://localhost:8883"
       const client = mqtt.getClient(host)
       
         client.on('connect', () => {
