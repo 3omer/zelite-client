@@ -129,10 +129,11 @@ export default new Vuex.Store({
     },
 
     connectMqtt({ commit }) {
-      const client = mqtt.getClient("ws://localhost:8883")
+      const host = "ws://localhost:8883"
+      const client = mqtt.getClient(host)
       
         client.on('connect', () => {
-          console.log('MQTT connected')
+          console.log('MQTT connected', { host })
           commit(types.SET_MQTT_STATUS, 'connected')
         })
 
