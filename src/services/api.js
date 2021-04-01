@@ -1,7 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:5000/api/v1' ||
-"https://f71e8b96-2bd9-4d49-bfa5-47840cebaf35.mock.pstmn.io/api/v1"
+const BASE_URL = process.env.BACKEND_HOST || 'http://localhost:5000/api/v1'
 
 // config axios
 axios.defaults.baseURL = BASE_URL
@@ -70,7 +69,7 @@ const authHeader = (token) => {
  * @returns {Promise} when resolved it return the server message, or user friendly message on rejection
  */
 const logout = (token) => {
-    return axios.post(ENDPOINTS.logout, { headers: authHeader(token) })
+    return axios.post(ENDPOINTS.logout, {}, { headers: authHeader(token) })
         .then(res => {
             return res.data.message || "You logged out"
         })
@@ -142,6 +141,8 @@ const postMQTTCred = (token, cred) => {
  */
 const axiosErrorToMsg = (err) => {
     // return a user friendly message to ui
+    console.error('API-Request.error: ', err)
+    
     let message = 'Something went Wrong'
     if (err.response) {
         message = err.response.data.error || message

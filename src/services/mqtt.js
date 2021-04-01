@@ -14,11 +14,11 @@ const defaults = {
 }
 
 let client
-const getClient = (host = 'ws://localhost:8883', options) => {
-
+const getClient = (host, options) => {
+    // host = "ws://localhost:8883"
     if (client) return client
 
-    console.log('connecting mqtt client')
+    console.log('connecting mqtt client .. .', { host })
 
     client = mqtt.connect(host, { ...defaults, ...options })
     client.on('error', (error) => {
@@ -42,6 +42,9 @@ const setTopicListner = (myTopic, listnerFunc) => {
         })
         });
 }
+
+// TODO: function to remove topic listner
+
 
 const publishData = (myTopic, data) => {
     return new Promise((resolve, reject) => {
