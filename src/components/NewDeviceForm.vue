@@ -118,7 +118,7 @@ export default {
 
       const data = {
         name: this.form.name,
-        place: this.form.port,
+        place: this.form.place,
         port: this.form.port,
         type: this.form.type
       };
