@@ -1,15 +1,9 @@
 <template>
   <div>
     <h5>Manager</h5>
-    <div
-      class="accordion"
-      id="settingsAccordion"
-    >
+    <div id="settingsAccordion" class="accordion">
       <div class="accordion-item">
-        <h2
-          class="accordion-header"
-          id="headingOne"
-        >
+        <h2 id="headingOne" class="accordion-header">
           <button
             class="accordion-button"
             type="button"
@@ -30,31 +24,22 @@
         >
           <div class="accordion-body bg-light">
             <div class="mb-2">
-              <button
-                class="btn btn-primary mx-2"
-                @click="btnAddDevice"
-              >
+              <button class="btn btn-primary mx-2" @click="btnAddDevice">
                 Add Device
               </button>
-              <button
-                class="btn btn-primary mx-2"
-                @click="btnMyDevices"
-              >
+              <button class="btn btn-primary mx-2" @click="btnMyDevices">
                 My Devices
               </button>
             </div>
             <Card class="p-2 bg-white">
-              <DevicesTable v-if="selectedComponent=='DevicesTable'" />
-              <NewDeviceForm v-if="selectedComponent=='NewDeviceForm'" />
+              <DevicesTable v-if="selectedComponent == 'DevicesTable'" />
+              <NewDeviceForm v-if="selectedComponent == 'NewDeviceForm'" />
             </Card>
           </div>
         </div>
       </div>
       <div class="accordion-item">
-        <h2
-          class="accordion-header"
-          id="headingTwo"
-        >
+        <h2 id="headingTwo" class="accordion-header">
           <button
             class="accordion-button collapsed"
             type="button"
@@ -85,38 +70,37 @@
 </template>
 
 <script>
-import DevicesTable from "../components/DevicesTable"
-import NewDeviceForm from "../components/NewDeviceForm"
+import DevicesTable from '../components/DevicesTable'
+import NewDeviceForm from '../components/NewDeviceForm'
 import MQTTConfig from '../components/MQTTConfig'
 
-import Card from "../components/Card";
+import Card from '../components/Card'
 export default {
-  name: "Manager",
-  data() {
-    return { selectedComponent: DevicesTable.name };
-  },
-  computed: {
-    devices() {
-      return this.$store.state.devices;
-    }
-  },
-  methods: {
-    btnAddDevice() {
-      this.selectedComponent = "NewDeviceForm";
-    },
-
-    btnMyDevices() {
-      this.selectedComponent = "DevicesTable";
-    }
-  },
+  name: 'Manager',
   components: {
     NewDeviceForm,
     DevicesTable,
     Card,
     MQTTConfig
+  },
+  data() {
+    return { selectedComponent: DevicesTable.name }
+  },
+  computed: {
+    devices() {
+      return this.$store.state.devices
+    }
+  },
+  methods: {
+    btnAddDevice() {
+      this.selectedComponent = 'NewDeviceForm'
+    },
+
+    btnMyDevices() {
+      this.selectedComponent = 'DevicesTable'
+    }
   }
-};
+}
 </script>
 
-<style>
-</style>
+<style></style>
