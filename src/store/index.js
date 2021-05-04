@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { getDevices, getMQTTConfig } from '../services/api'
-import mqtt from "../services/mqtt"
+import mqtt from '../services/mqtt'
 
 import { types } from './mutations-types'
 
@@ -11,10 +11,10 @@ Vue.use(Vuex)
 let user = {}
 try {
   user = JSON.parse(localStorage.getItem('user')) || user
-} catch {
+} catch (error) {
+  console.error(error.message)
   localStorage.removeItem('user')
 }
-
 
 export default new Vuex.Store({
   state: {
@@ -29,15 +29,17 @@ export default new Vuex.Store({
     mqttStatus: 'not connected'
   },
   mutations: {
-    [types.SET_USER](state, newUser) {
-      Vue.set(state.user, 'username', newUser.username)
-      Vue.set(state.user, 'email', newUser.email)
-      Vue.set(state.user, 'token', newUser.token)
-      localStorage.setItem('user', JSON.stringify(newUser))
+    [types.SET_USER](state, data) {
+      Vue.set(state.user, 'username', data.user.username)
+      Vue.set(state.user, 'email', data.user.email)
+      Vue.set(state.user, 'token', data.token)
+      localStorage.setItem('user', JSON.stringify(data))
     },
     [types.DEL_USER](state) {
       // Vue.delete(state.user, 'username')
-      let username, email, token = null
+      let username,
+        email,
+        token = null
       state.user = { ...state.user, ...{ username, email, token } }
       localStorage.removeItem('user')
     },
@@ -52,12 +54,12 @@ export default new Vuex.Store({
     },
 
     [types.SET_DEVICE_STATE](state, payload) {
-      console.log("MUTATUIN:SET_DEVICE_STATE", payload.key);
+      console.log('MUTATUIN:SET_DEVICE_STATE', payload.key)
 
-      const targetIndex = state.devices.findIndex((one) => one.key == payload.key)
+      const targetIndex = state.devices.findIndex(one => one.key == payload.key)
       const target = state.devices[targetIndex]
 
-      if (target.type === "switch") {
+      if (target.type === 'switch') {
         target.isOn = payload.newState
       } else {
         target.value = payload.newState
@@ -66,7 +68,7 @@ export default new Vuex.Store({
       Vue.set(state.devices, targetIndex, target)
     },
 
-    [types.SET_DEVICES_LOADING](state, isLoading ) {
+    [types.SET_DEVICES_LOADING](state, isLoading) {
       state.devicesLoading = isLoading
     },
 
@@ -83,14 +85,16 @@ export default new Vuex.Store({
     },
     [types.SET_MQTT_STATUS](state, status) {
       state.mqttStatus = status
-    },
+    }
   },
   getters: {
     token: state => state.user.token,
 
     // categorizing devies based on their type
-    switchDevices: state => state.devices.filter(device => device.type == "switch"),
-    sensorDevices: state => state.devices.filter(device => device.type == "sensor")
+    switchDevices: state =>
+      state.devices.filter(device => device.type == 'switch'),
+    sensorDevices: state =>
+      state.devices.filter(device => device.type == 'sensor')
   },
   actions: {
     loadDevices({ commit, getters }) {
@@ -98,56 +102,54 @@ export default new Vuex.Store({
       commit(types.SET_DEVICES, [])
       return getDevices(getters.token)
         .then(devices => {
-          console.log("Devices loaded - count", devices.length)
+          console.log('Devices loaded - count', devices.length)
           devices = devices.map(device => {
-            if (device.type === "switch") device.isOn = undefined
+            if (device.type === 'switch') device.isOn = undefined
             else device.value = undefined
             return device
           })
           commit(types.SET_DEVICES, devices)
           commit(types.SET_DEVICES_LOADING, false)
-
         })
         .catch(err => {
-          console.log("Loading data failed", err)
-        });
+          console.log('Loading data failed', err)
+        })
     },
 
     loadMQTTConfig({ commit, getters }) {
       return getMQTTConfig(getters.token)
         .then(config => {
-          console.log('MQTTConfig- loaded', { config });
+          console.log('MQTTConfig- loaded', { config })
           // TODO: load dev server from env
-          config.host = "ws://127.0.0.1:8883"
+          config.host = 'ws://127.0.0.1:8883'
           config.secure = false
           commit(types.SET_MQTT_CONFIG, config)
         })
         .catch(errMsg => {
           // TODO: state to hold Global error
-          console.log(errMsg);
+          console.log(errMsg)
         })
     },
 
     connectMqtt({ commit }) {
-      const host = process.env.VUE_APP_MQTT_HOST || "ws://localhost:8883"
+      const host = process.env.VUE_APP_MQTT_HOST || 'ws://localhost:8883'
       const client = mqtt.getClient(host)
-      
-        client.on('connect', () => {
-          console.log('MQTT connected', { host })
-          commit(types.SET_MQTT_STATUS, 'connected')
-        })
 
-        client.on('disconect', () => {
-          commit(types.SET_MQTT_STATUS, 'disconnected')
-        })
-        // handle mqtt error
-        client.on('error', (err) => {
-          console.log("MQTT-ERROR:", err.message)
-        })
-      },
-      doSubscribe(payload) {
-        mqtt.setTopicListner(payload.topic)
+      client.on('connect', () => {
+        console.log('MQTT connected', { host })
+        commit(types.SET_MQTT_STATUS, 'connected')
+      })
 
-      }
+      client.on('disconect', () => {
+        commit(types.SET_MQTT_STATUS, 'disconnected')
+      })
+      // handle mqtt error
+      client.on('error', err => {
+        console.log('MQTT-ERROR:', err.message)
+      })
     },
+    doSubscribe(payload) {
+      mqtt.setTopicListner(payload.topic)
+    }
+  }
 })
