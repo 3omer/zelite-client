@@ -1,16 +1,13 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-md navbar-dark gradient-blue px-1">
-      <a
-        class="navbar-brand bg-white align-bottom rounded"
-        href="/"
-      >
+      <a class="navbar-brand bg-white align-bottom rounded" href="/">
         <img
           src="../assets/zelite_logo_title_side.png"
           width="110"
           class="img-fluid"
           alt=""
-        >
+        />
       </a>
       <div class="border border-white rounded">
         <button
@@ -23,10 +20,7 @@
         </button>
       </div>
     </nav>
-    <div
-      class="collapse navbar-collapse"
-      id="navbarToggleMenu"
-    >
+    <div id="navbarToggleMenu" class="collapse navbar-collapse">
       <div class="d-md-none">
         <NavLinks />
       </div>
@@ -38,13 +32,10 @@
       <div class="user media text-secondary">
         <div class="media-body">
           <small class="user-name">{{ user.email }}</small>
-          <br>
+          <br />
         </div>
       </div>
-      <button
-        @click="btnLogout"
-        class="btn btn-sm btn-dark"
-      >
+      <button class="btn btn-sm btn-dark" @click="btnLogout">
         Logout
       </button>
     </div>
@@ -52,40 +43,38 @@
 </template>
 
 <script>
-import { logout } from "../services/api"
+import { logout } from '../services/api'
 import NavLinks from './NavLinks'
 // TODO: Add status/notifiction bar to display app level errors
 
 export default {
-  name: "AppHeader",
-  components:{
+  name: 'AppHeader',
+  components: {
     NavLinks
   },
   computed: {
     user() {
-      return this.$store.state.user;
+      return this.$store.state.user
     }
   },
   methods: {
     btnLogout() {
       // handle on click
-      console.log("btnLogout()");
+      console.log('btnLogout()')
       logout(this.user.token)
         .then(msg => {
-          console.log("Logging out - success", msg)
+          console.log('Logging out - success', msg)
           // TODO: display msg on status bar
           this.$store.commit('DEL_USER')
           this.$router.push('/')
         })
         .catch(errMsg => {
-          console.log("Logging out - failed", errMsg)
-        // TODO: display errMsg on status bar
+          console.log('Logging out - failed', errMsg)
+          // TODO: display errMsg on status bar
         })
     }
   }
-};
+}
 </script>
 
-<style>
-
-</style>
+<style></style>

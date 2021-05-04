@@ -6,22 +6,21 @@
 
 <script>
 export default {
-  name: "ToggledInput",
-  props: ["flag"],
+  name: 'ToggledInput',
+  props: ['flag'],
   watch: {
     flag() {
       if (this.flag) {
-        this.$el.firstElementChild.removeAttribute("disabled");
+        this.$el.firstElementChild.removeAttribute('disabled')
       } else {
-        this.$el.firstElementChild.setAttribute("disabled", this.flag);
+        this.$el.firstElementChild.setAttribute('disabled', this.flag)
       }
     }
   },
   mounted() {
-    this.$el.firstElementChild.setAttribute("disabled", this.flag);
+    this.$el.firstElementChild.setAttribute('disabled', this.flag)
   }
-};
+}
 </script>
 
-<style>
-</style>
+<style></style>

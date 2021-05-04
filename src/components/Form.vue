@@ -2,12 +2,9 @@
   <Card>
     <div v-if="$slots.title">
       <slot name="title" />
-      <hr>
+      <hr />
     </div>
-    <div
-      v-if="$slots.errors"
-      class="alert alert-danger"
-    >
+    <div v-if="$slots.errors" class="alert alert-danger">
       <slot name="errors" />
     </div>
     <slot name="form" />
@@ -15,14 +12,13 @@
 </template>
 
 <script>
-import Card from "./Card";
+import Card from './Card'
 export default {
-  name: "Form",
+  name: 'Form',
   components: {
     Card
   }
-};
+}
 </script>
 
-<style>
-</style>
+<style></style>

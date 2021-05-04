@@ -6,30 +6,30 @@
     <div class="mx-0 mx-md-2">
       <ele-spinner v-if="$store.state.devicesLoading" />
       <SwitchDevice
-        :device="device"
-        :key="device.id"
         v-for="device in switches"
+        :key="device.id"
+        :device="device"
       />
     </div>
   </Card>
 </template>
 
 <script>
-import Card from "./Card";
-import SwitchDevice from "./SwitchDevice";
+import Card from './Card'
+import SwitchDevice from './SwitchDevice'
 import eleSpinner from './ele-spinner'
 export default {
-  computed: {
-    switches() {
-      return this.$store.getters.switchDevices;
-    },
-  },
   components: {
     SwitchDevice,
     Card,
     eleSpinner
+  },
+  computed: {
+    switches() {
+      return this.$store.getters.switchDevices
+    }
   }
-};
+}
 </script>
 
 <style>

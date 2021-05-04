@@ -1,9 +1,5 @@
 <template>
-  <button
-    class="btn"
-    :disabled="isDisabled"
-    @click="$emit('click')"
-  >
+  <button class="btn" :disabled="isDisabled" @click="$emit('click')">
     <span
       v-if="isLoading"
       class="spinner-border spinner-border-sm"
@@ -12,10 +8,7 @@
     />
     <!-- if the button has icon, hide it while loading -->
     <template v-if="$slots.icon">
-      <slot
-        v-if="!isLoading"
-        name="icon"
-      />
+      <slot v-if="!isLoading" name="icon" />
     </template>
     {{ title }}
   </button>
@@ -23,10 +16,9 @@
 
 <script>
 export default {
-    name: 'EleBtnAction',
-    props: [ 'isLoading', 'isDisabled', 'title' ]
-};
+  name: 'EleBtnAction',
+  props: ['isLoading', 'isDisabled', 'title']
+}
 </script>
 
-<style>
-</style>
+<style></style>

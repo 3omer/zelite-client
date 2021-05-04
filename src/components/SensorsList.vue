@@ -6,38 +6,38 @@
     <ele-spinner v-if="$store.state.devicesLoading" />
     <div class="d-flex flex-wrap mx-0 mx-md-2 device-list">
       <SensorDevice
+        v-for="device in sensors"
         :key="device.key"
         :device="device"
-        v-for="device in sensors"
       />
     </div>
   </Card>
 </template>
 
 <script>
-import SensorDevice from "./SensorDevice";
-import Card from "./Card";
-import eleSpinner from "./ele-spinner";
+import SensorDevice from './SensorDevice'
+import Card from './Card'
+import eleSpinner from './ele-spinner'
 
 export default {
-  name: "SensorList",
-  computed: {
-    sensors() {
-      return this.$store.getters.sensorDevices;
-    },
-    devicesLoading() {
-      return this.$store.state.devicesLoading;
-    }
-  },
+  name: 'SensorList',
   components: {
     SensorDevice,
     Card,
     eleSpinner
   },
+  computed: {
+    sensors() {
+      return this.$store.getters.sensorDevices
+    },
+    devicesLoading() {
+      return this.$store.state.devicesLoading
+    }
+  },
   mounted() {
     // console.log(this);
   }
-};
+}
 </script>
 
 <style>
