@@ -19,6 +19,7 @@ try {
 export default new Vuex.Store({
   state: {
     user,
+    networkStatus: '', // global errors
     devices: [],
     devicesLoading: true,
     MQTTConfig: {
@@ -29,11 +30,16 @@ export default new Vuex.Store({
     mqttStatus: 'not connected'
   },
   mutations: {
+    [types.SET_NETWORK_ERROR](state, error) {
+      state.networkStatus = error
+    },
     [types.SET_USER](state, data) {
-      Vue.set(state.user, 'username', data.user.username)
-      Vue.set(state.user, 'email', data.user.email)
-      Vue.set(state.user, 'token', data.token)
-      localStorage.setItem('user', JSON.stringify(data))
+      const token = data.token
+      const user = data.user
+      Vue.set(state.user, 'username', user.username)
+      Vue.set(state.user, 'email', user.email)
+      Vue.set(state.user, 'token', token)
+      localStorage.setItem('user', JSON.stringify({ ...user, token }))
     },
     [types.DEL_USER](state) {
       // Vue.delete(state.user, 'username')
@@ -101,9 +107,9 @@ export default new Vuex.Store({
       commit(types.SET_DEVICES_LOADING, true)
       commit(types.SET_DEVICES, [])
       return getDevices(getters.token)
-        .then(devices => {
-          console.log('Devices loaded - count', devices.length)
-          devices = devices.map(device => {
+        .then(data => {
+          console.log('Devices loaded - count', data.devices.length)
+          const devices = data.devices.map(device => {
             if (device.type === 'switch') device.isOn = undefined
             else device.value = undefined
             return device
@@ -113,6 +119,20 @@ export default new Vuex.Store({
         })
         .catch(err => {
           console.log('Loading data failed', err)
+          if (err.statusCode === -1) {
+            commit(types.SET_NETWORK_STATUS, 'connection failed')
+          }
+          // token expired or invalid
+          else if ([401, 404, 422].includes(err.statusCode)) {
+            // TODO: dispaly message to user
+            // redirect to login
+            commit(types.DEL_USER)
+            document.location.reload()
+          } else {
+            // something went wrong
+            // TODO: dispaly message to user
+            document.location.reload()
+          }
         })
     },
 
