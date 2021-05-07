@@ -74,9 +74,16 @@ export default {
           this.$store.commit(types.DELETE_DEVICE, key)
           this.isLoading = this.isDisabled = false
         })
-        .catch(errorMsg => {
-          console.log(errorMsg)
+        .catch(error => {
+          console.log(error)
           this.isLoading = this.isDisabled = false
+          this.isLoading = this.isDisabled = false
+          if (error.statusCode === -1) {
+            // TODO: error : try again
+          }
+          if (error.statusCode === 422) {
+            // TODO: error: re-login
+          }
         })
     }
   }
