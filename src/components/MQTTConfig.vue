@@ -59,6 +59,7 @@
           :value="config.host"
           type="text"
           class="form-control"
+          disabled
         />
       </div>
     </div>
@@ -85,16 +86,18 @@ export default {
   },
   methods: {
     btnChange() {
-      console.log('btnChange()', this.username)
+      console.log('btnChange()')
       postMQTTCred(this.$store.getters.token, {
         username: this.config.username,
         password: this.config.password
       })
-        .then(newCred => {
-          console.log('newCred', { newCred })
+        .then(() => {
+          console.log('MQTT credentials updated')
         })
-        .catch(errMsg => {
-          this.error = errMsg
+        .catch(error => {
+          if (error.statusCode === 400) {
+            this.error = 'mqtt username and passowrd are required'
+          } else this.error = error.message || error.status
         })
     },
 
