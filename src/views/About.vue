@@ -11,13 +11,6 @@
     >
       <i class="bi bi-github" />Zelite Platform
     </a>
-    <a
-      class="btn btn-lg btn-primary m-2"
-      href="https://fb.com/3omermhmd"
-      target="blank"
-    >
-      <i class="bi bi-facebook" />Omer M. Osman
-    </a>
   </Card>
 </template>
 <script>
